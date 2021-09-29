@@ -31,6 +31,9 @@ xdg-open http://localhost:9117
 ```
 
 # Устанавливаем [NodeJS](https://deb.nodesource.com) и [Http Server](https://github.com/http-party/http-server)
+
+Http Server нужен для разрешения CORS и реверсивного прокси, а так же более прост в настройке, чем Nginx или Apache.
+
 ```
 cd /tmp
 wget https://deb.nodesource.com/setup_16.x -O nodesource_setup.sh
