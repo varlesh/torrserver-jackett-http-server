@@ -39,7 +39,7 @@ sudo apt install -y nodejs
 # Устанавливаем http-server
 sudo npm install -g npm http-server
 # Скачиваем юнит для Http Server
-wget https://raw.githubusercontent.com/varlesh/torrserver-jackett-http-server/main/http-server.service -O /usr/lib/systemd/system/http-server.service
+sudo wget https://raw.githubusercontent.com/varlesh/torrserver-jackett-http-server/main/http-server.service -O /usr/lib/systemd/system/http-server.service
 # Теперь вам нужно открыть юнит и прописать IP-адресс в строчке ExecStart вашего сервера, вместо YOUR_IP_SERVER.
 # Важно!!! Не пишите там localhost или 127.0.0.1, а реальный адресс, к примеру 192.168.1.2
 sudo nano /usr/lib/systemd/system/http-server.service
