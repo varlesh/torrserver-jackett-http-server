@@ -5,7 +5,7 @@ After = syslog.target network.target nss-lookup.target
 [Service]
 Type = simple
 ExecStart = http-server ~/.jackett/Jackett/Content --port 8080 --cors --proxy http://YOUR_IP_SERVER:9117
-ExecStop = killall -9 node
+ExecStop = killall -9 http-server
 TimeoutSec = 10
 Restart = on-failure
 
