@@ -3,7 +3,7 @@
 
 # Устанавливаем [Torrserver](https://github.com/YouROK/TorrServer)
 ```
-sudo wget -c https://github.com/YouROK/TorrServer/releases/download/MatriX.109/TorrServer-linux-amd64 -O /usr/bin/torrserver
+sudo wget -c https://github.com/YouROK/TorrServer/releases/download/MatriX.117/TorrServer-linux-amd64 -O /usr/bin/torrserver
 sudo chmod +x /usr/bin/torrserver
 # Скачиваем юнит для systemd
 sudo wget https://raw.githubusercontent.com/YouROK/TorrServer/master/torrserver.service -O /usr/lib/systemd/system/torrserver.service
@@ -21,7 +21,7 @@ xdg-open http://localhost:8090
 # Устанавливаем [Jackett](https://github.com/Jackett/Jackett)
 ```
 cd /tmp
-wget -c https://github.com/Jackett/Jackett/releases/download/v0.19.138/Jackett.Binaries.LinuxAMDx64.tar.gz
+wget -c https://github.com/Jackett/Jackett/releases/download/v0.20.1687/Jackett.Binaries.LinuxAMDx64.tar.gz
 mkdir ~/.jackett
 tar -xzvf Jackett.Binaries.LinuxAMDx64.tar.gz -C ~/.jackett/
 # Включаем и запускаем юнит
@@ -52,6 +52,17 @@ sudo systemctl daemon-reload
 sudo systemctl enable http-server
 sudo systemctl start http-server
 # Проверяем
-xdg-open http://localhost:8080
-# Помните, что адресс jackett, который будет использоваться теперь на порту 8080
+xdg-open http://localhost:9117
+# Помните, что адресс jackett проксируется c порта 8080 на порт 9117
+```
+
+# Включение поиска фильмов и сериалов с трекера RuTor
+
+RuTor имеет только категорию Other, что затрудняет парсить фильмы и сериалы. Для решения этой проблемы можете добавить исправленные индексеры "Rutor-TV" и "Rutor-Movies"
+
+```
+wget https://raw.githubusercontent.com/varlesh/torrserver-jackett-http-server/main/rutor-movies.yml -O ~/.jackett/Jackett/Definitions/
+wget https://raw.githubusercontent.com/varlesh/torrserver-jackett-http-server/main/rutor-tv.yml -O ~/.jackett/Jackett/Definitions/
+# Перезапускаем Jackett и добавляем новые индексеры
+sudo systemctl restart jackett
 ```
