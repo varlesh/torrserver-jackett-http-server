@@ -56,13 +56,14 @@ xdg-open http://localhost:9117
 # Помните, что адресс jackett проксируется c порта 8080 на порт 9117
 ```
 
-# Включение поиска фильмов и сериалов с трекера RuTor
+# Включение поиска фильмов и сериалов с некоторых популярных трекеров
 
-RuTor имеет только категорию Other, что затрудняет парсить фильмы и сериалы. Для решения этой проблемы можете добавить исправленные индексеры "Rutor-TV" и "Rutor-Movies"
+Некоторые трекеры, к примеру RuTor, имеют только категорию Other, что затрудняет парсить фильмы и сериалы. Для решения этой проблемы можете добавить исправленные индексеры с суффиксом "Fix"
 
 ```
-wget https://raw.githubusercontent.com/varlesh/torrserver-jackett-http-server/main/rutor-movies.yml -O ~/.jackett/Jackett/Definitions/
-wget https://raw.githubusercontent.com/varlesh/torrserver-jackett-http-server/main/rutor-tv.yml -O ~/.jackett/Jackett/Definitions/
+wget https://raw.githubusercontent.com/varlesh/torrserver-jackett-http-server/main/rutor-fix.yml -O ~/.jackett/Jackett/Definitions/
+wget https://raw.githubusercontent.com/varlesh/torrserver-jackett-http-server/main/rutracker-ru-fix.yml -O ~/.jackett/Jackett/Definitions/
+wget https://raw.githubusercontent.com/varlesh/torrserver-jackett-http-server/main/torrentby-fix.yml -O ~/.jackett/Jackett/Definitions/
 # Перезапускаем Jackett и добавляем новые индексеры
 sudo systemctl restart jackett
 ```

@@ -1,6 +1,6 @@
 ---
-id: rutor-TV
-name: RuTor-TV
+id: rutor-fix
+name: RuTor Fix
 description: "RuTor is a RUSSIAN Public site for MOVIES / TV / GENERAL"
 language: ru-RU
 type: public
@@ -8,9 +8,10 @@ encoding: UTF-8
 links:
   - http://rutor.info/ # site does not support https ERR_CONNECTION_REFUSED
   - http://rutor.is/ # site does not support https ERR_CONNECTION_REFUSED
-  - http://new-rutor.org/ # site does not support https ERR_CONNECTION_REFUSED
+  - http://6tor.org/
 legacylinks:
   - http://live-rutor.org/ # domain expired 9 Feb 2020
+  - http://new-rutor.org/ # ERR_NAME_NOT_RESOLVED
   - https://rutor.black-mirror.xyz/
   - https://rutor.unblocked.casa/
   - https://rutor.proxyportal.fun/
@@ -24,7 +25,6 @@ legacylinks:
   - https://rutor.unblocked.monster/
   - https://rutor.nocensor.space/
   - https://rutor.nocensor.work/
-  - http://6tor.org/
 
 caps:
   # unfortunately RuTor does not display categories anywhere in its search results page :-(
@@ -33,12 +33,12 @@ caps:
   categorymappings:
     - {id: 1, cat: Movies, desc: "Movies"}
     - {id: 2, cat: TV, desc: "TV"}
-    - {id: 3, cat: TV, desc: "TV"}
+    - {id: 3, cat: Other, desc: "Other"}
 
   modes:
     search: [q]
-    tv-search: [q, season, ep, imdbid]
-    movie-search: [q, imdbid]
+    tv-search: [q]
+    movie-search: [q]
     music-search: [q]
 
 settings:
@@ -66,35 +66,33 @@ settings:
 
 search:
   paths:
-    # http://rutor.info/search/0/0/010/0/tt10288566 # search title and descr for imdb
-    # http://rutor.info/search/0/0/100/0/gotham%2004x01 # search title for query
-    # http://rutor.info/top/ # search keywordless
-    - path: "{{ if .Query.IMDBID }}search/0/0/010/{{ .Config.sort }}/{{ .Query.IMDBID }}{{ else }}{{ end }}{{ if .Keywords }}search/0/0/100/{{ .Config.sort }}/{{ .Keywords }}/{{ else }}{{ end }}{{ if or .Keywords .Query.IMDBID }}{{ else }}top/{{ end }}"
+    # http://rutor.info/search/0/0/100/0/gotham%2004x01
+    - path: "{{ if .Keywords }}search/0/0/100/{{ .Config.sort }}/{{ .Keywords }}/{{ else }}top/{{ end }}"
 
   rows:
     selector: tr:has(td:has(a.downgif))
 
   fields:
-    category:
-      text: 3
-    title_is_rus:
-      selector: td:nth-of-type(2) a[href^="/torrent/"]
-      filters:
-        - name: re_replace
-          args: ["[^А-Яа-яЁё]+", ""]
+#    category:
+#      text: 3
+#    title_is_rus:
+#      selector: td:nth-of-type(2) a[href^="/torrent/"]
+#      filters:
+#        - name: re_replace
+#          args: ["[^А-Яа-яЁё]+", ""]
     title:
       selector: td:nth-of-type(2) a[href^="/torrent/"]
-      filters:
-        - name: re_replace
-          args: [".+\\/\\s([^а-яА-я\\/]+)\\s.*\\[(?:S*(\\d+))(?:x*(\\d+-*\\d*).*)*\\].*\\)\\s+(.+)\\s+(?:\\||от)\\s*(.+)", "$1 - S$2E$3 - rus - $4 - $5"]
-        - name: replace
-          args: ["E -", "E01-99 -"]
-        - name: replace
-          args: ["Кураж-Бамбей", "kurazh"]
-        - name: append
-          args: "{{ if .Result.title_is_rus }} - RUSSIAN{{ else }}{{ end }}"
-        - name: re_replace
-          args: ["(.+?) - RUSSIAN", "{{ if .Config.addrussian }}$1 - RUSSIAN{{ else }}$1{{ end }}"]
+#      filters:
+#        - name: re_replace
+#          args: [".+\\/\\s([^а-яА-я\\/]+)\\s.*\\[(?:S*(\\d+))(?:x*(\\d+-*\\d*).*)*\\].*\\)\\s+(.+)\\s+(?:\\||от)\\s*(.+)", "$1 - S$2E$3 - rus - $4 - $5"]
+#        - name: replace
+#          args: ["E -", "E01-99 -"]
+#        - name: replace
+#          args: ["Кураж-Бамбей", "kurazh"]
+#        - name: append
+#          args: "{{ if .Result.title_is_rus }} - RUSSIAN{{ else }}{{ end }}"
+#        - name: re_replace
+#          args: ["(.+?) - RUSSIAN", "{{ if .Config.addrussian }}$1 - RUSSIAN{{ else }}$1{{ end }}"]
     details:
       selector: td:nth-of-type(2) a[href^="/torrent/"]
       attribute: href
