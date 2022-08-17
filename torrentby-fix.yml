@@ -12,14 +12,13 @@ legacylinks:
 
 caps:
   categories:
-    Other: Other
+    Movies: Movies
+    TV: TV
 
   modes:
     search: [q]
     tv-search: [q, season, ep]
     movie-search: [q]
-    music-search: [q]
-    book-search: [q]
 
 settings:
   - name: info_8000
